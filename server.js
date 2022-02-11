@@ -12,6 +12,7 @@ const {
 } = require("./utils/users");
 
 const http = require("http");
+const { type } = require("express/lib/response");
 const server = http.createServer(app);
 const io = socketio(server);
 
@@ -51,6 +52,13 @@ io.on("connection", (socket) => {
       room: user.room,
       users: getRoomUsers(user.room),
     });
+
+    //send message that user is typing
+    // socket.on("typing", (msg) => {
+    //   console.log(user);
+    //   io.to(user.room).emit("message", formatMessage(user.username, msg));
+    //   console.log(message);
+    // });
 
     //7. receives text typed by one client, and sends (emits) it out to all other clients
     socket.on("chatMessage", (msg) => {

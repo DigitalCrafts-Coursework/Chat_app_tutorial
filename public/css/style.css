@@ -187,3 +187,16 @@ a {
     display: none;
   }
 }
+
+.own-message {
+  background: #e6e9ff;
+  color: #d9534f;
+  width: 50%;
+}
+
+.other-message {
+  background: #dbbbf0;
+  color: #5cb85c;
+  width: 70%;
+  float: right;
+}

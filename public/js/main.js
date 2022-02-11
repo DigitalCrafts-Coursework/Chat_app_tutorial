@@ -28,6 +28,11 @@ socket.on("message", (message) => {
 //outputs texts to the dom (could put in utils folder, should do that)
 function outputMessage(message) {
   const div = document.createElement("div");
+  if (message.username === username) {
+    div.classList.add("own-message");
+  } else {
+    div.classList.add("other-message");
+  }
   div.classList.add("message");
   div.innerHTML = `<p class="meta">${message.username} <span>${message.time}</span></p>
             <p class="text">${message.text}</p>`;
@@ -50,12 +55,20 @@ function writeRoomNameAndUsers(room, users) {
   }
 }
 
+//typing animation
+// const inputBox = document.getElementById("msg");
+// msg.addEventListener("keydown", () => {
+//   console.log("button down");
+//   socket.emit("typing", "typing...");
+// });
+
 // user chat input box, send to the server
 chatForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const inputBox = document.getElementById("msg");
   const msg = inputBox.value;
   console.log(msg);
+
   //send (emit) message to the server
   socket.emit("chatMessage", msg);
   //clear the chat input box, and focus on the box after button click
