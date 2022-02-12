@@ -62,13 +62,26 @@ function writeRoomNameAndUsers(room, users) {
 //   socket.emit("typing", "typing...");
 // });
 
+//attempt to receive message
+// socket.on("image", function (data) {
+//   console.log(`here is the ${data}`);
+//   // const requestBodyObject = JSON.parse(decodedRequestBodyString.toString(data));
+
+//   console.log(atob(data));
+//   // var imgArray = new Uint8Array(data.buffer);
+//   const src = `data:image/png;base64, ${data}`;
+//   const image = document.querySelector(".bart");
+//   image.src = src;
+// });
+
+//
+
 // user chat input box, send to the server
 chatForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const inputBox = document.getElementById("msg");
   const msg = inputBox.value;
   console.log(msg);
-
   //send (emit) message to the server
   socket.emit("chatMessage", msg);
   //clear the chat input box, and focus on the box after button click

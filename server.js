@@ -24,6 +24,27 @@ const chatBot = "chatBot";
 io.on("connection", (socket) => {
   //   console.log("new websocket connection");
 
+  //attempt to send an image
+  const fs = require("fs");
+  // const path = require("path");
+
+  // Create a base64 string from an image => ztso+Mfuej2mPmLQxgD ...
+  const base64 = fs.readFileSync("public/js/Bart_Simpson_200px.png", "base64");
+  // Convert base64 to buffer => <Buffer ff d8 ff db 00 43 00 ...
+  const buffer = Buffer.from(base64, "base64");
+  console.log(buffer);
+  socket.emit("image", { image: true, buffer: buffer });
+
+  // const promise = fs.promises.readFile(
+  //   path.join("public/js/Bart_Simpson_200px.png")
+  // );
+  // Promise.resolve(promise).then(function (buffer) {
+  //   console.log(buffer);
+  //   socket.emit("image", { image: true, buffer: buffer });
+  // });
+
+  //
+
   //3.joins specific room
   socket.on("joinRoom", ({ username, room }) => {
     // makes user object (w/id, username, room), and joins the selected room
@@ -62,6 +83,7 @@ io.on("connection", (socket) => {
 
     //7. receives text typed by one client, and sends (emits) it out to all other clients
     socket.on("chatMessage", (msg) => {
+      //post request - save chat to database
       //8a.formats message and sends it to all clients in room
       io.to(user.room).emit("message", formatMessage(user.username, msg));
       console.log(msg);
